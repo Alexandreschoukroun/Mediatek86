@@ -1,5 +1,6 @@
 {% extends "baseadmin.html.twig" %}
 {% block body %}
+    
     <table class="table table-striped">
         <caption>Formations</caption>
         <thead>
@@ -54,7 +55,11 @@
                 <th class="text-center align-top" scope="col">
                     &nbsp;
                 </th>
+                
             </tr>
+             <p class="text-end">
+            <a href="{{ path('admin.formation.ajout') }}" class="btn btn-primary" >Ajouter une nouvelle formation</a>
+        </p></br>
         </thead>
         <tbody>
             {% for formation in formations %}
