@@ -53,6 +53,38 @@ class CategorieRepository extends ServiceEntityRepository
                 ->orderBy('c.name', 'ASC')   
                 ->getQuery()
                 ->getResult();        
-    }    
+    }  
+    /**
+     * Retourne toutes les playlists triées sur un champ
+     * @param type $champ
+     * @param type $ordre
+     * @return array
+     */
+    public function findAllOrderBy($champ, $ordre): array {
+        return $this->createQueryBuilder('c')
+                        ->select('c.id id')
+                        ->addSelect('c.name name')
+                        ->addSelect('count(f.id) nbformations')
+                        ->leftjoin('c.formations', 'f')
+                        ->leftjoin('f.playlist', 'p')
+                        ->addGroupBy('c.name')
+                        ->orderBy($champ, $ordre)
+                        ->getQuery()
+                        ->getResult();
+    }
+
+    /**
+     * 
+     * @param type $nom
+     * @return string
+     */
+    public function findAllNameEqual($nom): array {
+        return $this->createQueryBuilder('c')
+                        ->select('c.name name')
+                        ->where('c.name=:name')
+                        ->setParameter('name', $nom)
+                        ->getQuery()
+                        ->getResult();
+    }
 
 }

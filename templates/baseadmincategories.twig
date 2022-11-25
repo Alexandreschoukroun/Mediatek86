@@ -6,7 +6,7 @@
     <div class="container">
         <!-- titre -->
         <div class="text-center">
-            <h1> Gestion des playlists</h1>
+            <h1> Gestion des catégories</h1>
         </div>
         <div class="text-left">
             <img src="{{ app.request.getBasePath()~'/banniere.jpg' }}" alt="image formation" >
@@ -22,9 +22,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin.playlists') }}">Playlists</a>
                     </li>
-                    <li class="nav-item">
+                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin.categories') }}">Catégories</a>
-                    </li>                       
+                    </li>      
+                    
                 </ul>
             </div>
         </nav>        
