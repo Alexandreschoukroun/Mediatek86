@@ -24,7 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdminPLaylistsController extends AbstractController {
     const PAGE_PLAYLISTS = "admin/admin.playlists.html.twig";
-    const PAGE_PLAYLIST = "pages/playlist.html.twig";
+    const PAGE_PLAYLIST = "admin/admin.playlist.html.twig";
     
     /**
      * 
