@@ -56,7 +56,7 @@ class AdminFormationsController extends AbstractController{
     }
 
     /**
-     * @Route("/admin/tri/{champ}/{ordre}/{table}", name="formations.sorttable")
+     * @Route("/admin/tri/{champ}/{ordre}/{table}", name="admin.formations.sorttable")
      * @param type $champ
      * @param type $ordre
      * @param type $table
@@ -72,7 +72,7 @@ class AdminFormationsController extends AbstractController{
     } 
      
     /**
-     * @Route("/admin/tri/{champ}/{ordre}", name="formations.sort")
+     * @Route("/admin/tri/{champ}/{ordre}", name="admin.formations.sort")
      * @param type $champ
      * @param type $ordre
      * @param type $table
@@ -89,7 +89,7 @@ class AdminFormationsController extends AbstractController{
     
     
     /**
-     * @Route("/admin/recherche/{champ}/{table}", name="formations.findallcontaintable")
+     * @Route("/admin/recherche/{champ}/{table}", name="admin.formations.findallcontaintable")
      * @param type $champ
      * @param Request $request
      * @param type $table
@@ -107,7 +107,7 @@ class AdminFormationsController extends AbstractController{
         ]);
     } 
     /**
-     * @Route("/admin/recherche/{champ}", name="formations.findallcontain")
+     * @Route("/admin/recherche/{champ}", name="admin.formations.findallcontain")
      * @param type $champ
      * @param Request $request
      * @return Response
