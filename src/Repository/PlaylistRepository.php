@@ -88,8 +88,18 @@ class PlaylistRepository extends ServiceEntityRepository
         if ($valeur == "") {
             return $this->findAllOrderByName('ASC');
         }
+        if($table==""){
+               return $this->createQueryBuilder('p')
+                           ->leftjoin('p.formations', 'f')
+                           ->where('p.'.$champ.' LIKE :valeur')
+                           ->setParameter('valeur', '%'.$valeur.'%')
+                           ->groupBy('p.id')
+                           ->orderBy('p.name', 'ASC')
+                           ->getQuery()
+                           ->getResult(); 
+        }
          return $this->createQueryBuilder('p')
-                        ->join($this->formations, 'f')
+                        ->leftJoin($this->formations, 'f')
                         ->leftjoin($this->categories, 'c')
                         ->where('c.' . $champ . ' LIKE :valeur')
                         ->setParameter('valeur', '%' . $valeur . '%')
@@ -112,14 +122,12 @@ class PlaylistRepository extends ServiceEntityRepository
         }
          return $this->createQueryBuilder('p')
                         
-                        ->join($this->formations, 'f')
+                        ->leftjoin($this->formations, 'f')
                         ->leftjoin($this->categories, 'c')
                         ->where('p.' . $champ . ' LIKE :valeur')
                         ->setParameter('valeur', '%' . $valeur . '%')
                         ->groupBy('p.id')
-                        ->addGroupBy($this->cName)
                         ->orderBy('p.name', 'ASC')
-                        ->addOrderBy($this->cName)
                         ->getQuery()
                         ->getResult();
     }

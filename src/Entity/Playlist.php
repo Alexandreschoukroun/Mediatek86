@@ -106,7 +106,7 @@ class Playlist
             $categoriesFormation = $formation->getCategories();
             foreach($categoriesFormation as $categorieFormation)
             if(!$categories->contains($categorieFormation->getName())){
-                     $categories[] = $categorieFormation->getName();
+                  $categories[] = $categorieFormation->getName();
             }
      }
      return $categories;
