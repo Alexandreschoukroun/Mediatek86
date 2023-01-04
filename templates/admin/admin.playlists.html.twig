@@ -49,6 +49,7 @@
         <tbody>
             <!-- boucle sur les playlists -->
             {% set ancplaylist = '' %}
+            {% if playlists|length > 0 %}
             {% for k in 0..playlists|length-1 %}
                 <!-- affichage une fois chaque playlist -->
                 
@@ -82,6 +83,7 @@
                         </td>
                     </tr>
             {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 {% endblock %}
