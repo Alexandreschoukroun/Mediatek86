@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 19 sep. 2022 à 12:26
--- Version du serveur :  5.7.31
--- Version de PHP : 7.4.9
+-- Généré le : dim. 05 fév. 2023 à 17:50
+-- Version du serveur : 5.7.40
+-- Version de PHP : 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,26 +18,27 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : mediatekformation
+-- Base de données : `mediatekformation`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table categorie
+-- Structure de la table `categorie`
 --
 
-DROP TABLE IF EXISTS categorie;
-CREATE TABLE categorie (
-  id int(11) NOT NULL,
-  name varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `categorie`;
+CREATE TABLE IF NOT EXISTS `categorie` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table categorie
+-- Déchargement des données de la table `categorie`
 --
 
-INSERT INTO categorie (id, `name`) VALUES
+INSERT INTO `categorie` (`id`, `name`) VALUES
 (1, 'Java'),
 (2, 'UML'),
 (3, 'C#'),
@@ -51,75 +52,68 @@ INSERT INTO categorie (id, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table doctrine_migration_versions
+-- Structure de la table `doctrine_migration_versions`
 --
 
-DROP TABLE IF EXISTS doctrine_migration_versions;
-CREATE TABLE doctrine_migration_versions (
-  version varchar(191) COLLATE utf8_unicode_ci NOT NULL,
-  executed_at datetime DEFAULT NULL,
-  execution_time int(11) DEFAULT NULL
+DROP TABLE IF EXISTS `doctrine_migration_versions`;
+CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
+  `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `executed_at` datetime DEFAULT NULL,
+  `execution_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Déchargement des données de la table doctrine_migration_versions
+-- Déchargement des données de la table `doctrine_migration_versions`
 --
 
-INSERT INTO doctrine_migration_versions (`version`, executed_at, execution_time) VALUES
+INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 ('DoctrineMigrations\\Version20220831122705', '2022-08-31 12:29:46', 298),
 ('DoctrineMigrations\\Version20220901133418', '2022-09-01 13:35:11', 75),
 ('DoctrineMigrations\\Version20220901142041', '2022-09-01 14:23:58', 447),
 ('DoctrineMigrations\\Version20220902060409', '2022-09-02 06:04:28', 72),
 ('DoctrineMigrations\\Version20220902061351', '2022-09-02 06:14:16', 303),
-('DoctrineMigrations\\Version20220904053453', '2022-09-04 05:36:24', 237);
+('DoctrineMigrations\\Version20220904053453', '2022-09-04 05:36:24', 237),
+('DoctrineMigrations\\Version20221130144327', '2022-11-30 14:44:38', 852);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table formation
+-- Structure de la table `formation`
 --
 
-DROP TABLE IF EXISTS formation;
-CREATE TABLE formation (
-  id int(11) NOT NULL,
-  published_at datetime DEFAULT NULL,
-  title varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  description longtext COLLATE utf8mb4_unicode_ci,
-  video_id varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  playlist_id int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `formation`;
+CREATE TABLE IF NOT EXISTS `formation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `published_at` datetime DEFAULT NULL,
+  `title` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci,
+  `video_id` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `playlist_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_404021BF6BBD148` (`playlist_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table formation
+-- Déchargement des données de la table `formation`
 --
 
-INSERT INTO formation (id, published_at, title, description, video_id, playlist_id) VALUES
-(1, '2021-01-04 17:00:12', 'Eclipse n°8 : Déploiement', 'Exécution de l\'application en dehors de l\'IDE, en invite de commande.\nCréation d\'un ficher jar pour le déploiement de l\'application.\n00:20 : exécuter l\'application à partir d\'un invite de commandes\n04:41 : créer un fichier jar auto exécutable\n06:42 : exécuter un fichier jar directement\n07:09 : exécuter un fichier jar dans l\'invite de commande pour avoir les retours console', 'Z4yTTXka958', 1),
-(2, '2021-01-02 17:00:01', 'Eclipse n°7 : Tests unitaires', 'Intégration de JUnit dans l\'application et création de tests unitaires.\n00:07 : rappel sur le principe du test unitaire\n01:01 : intégrer JUnit au projet (une seule fois)\n01:52 : créer une classe de test\n03:49 : créer une méthode de test\n08:35 : lancer le test\n09:11 : créer une autre méthode de test pour tester la même méthode\n11:02 : relancer le test', '-nw42Xq6cYE', 1),
-(3, '2020-12-30 17:00:07', 'Eclipse n°6 : Documentation technique', 'Intégration des commentaires normalisés et génération automatique de la documentation technique\n00:08 : insérer des commentaires normalisés\n02:14 : générer documentation technique\n04:35 : repérer et corriger les erreurs et warnings\n06:58 : afficher la documentation technique', 'PrK_P3TKc00', 1),
-(4, '2020-12-29 17:00:00', 'Eclipse n°5 : Refactoring', 'Utilisation des outils de refactoring et de génération automatique de code.\n01:00 : refaire automatiquement les indentations\n01:25 : changer un nom (classe, méhode, propriété)\n04:04 : extraire une méthode\n06:19 : modifier la signature d\'une méthode\n09:23 : générer du code (constructeur, getter/setter)\n12:34 : encapsuler une propriété\n15:30 : extraire une interface', '1p_mKDDSMnQ', 1),
-(5, '2020-11-09 17:00:25', 'Eclipse n°4 : WindowBuilder', 'Intégration de l\'outil WindowBuilder dans Eclipse pour pouvoir construire de façon visuelle, une interface graphique.\n00:00 : téléchargement et configuration de WindowBuilder\n03:00 : création d\'une JFrame avec WindowBuilder\n05:56 : construction de l\'interface graphique\n\n10:43 : gestion des événements\n16:15 : gestion des ressources graphiques (images...)', 'pQfbr3hpw04', 1),
-(6, '2020-11-07 17:00:09', 'Eclipse n°3 : GitHub et Eclipse', 'Créer un compte sur le site GitHub (site offrant un serveur de gestion de versions pour mémoriser les différentes étapes d\'un projet et pour le travail collaboratif).\nLier ce compte à un projet sous Eclipse.\nUtiliser ce lien pour enregistrer à distance (commit and push), annuler un commit (revert commit) ou récupérer un projet distant (clone).\n\n\nSommaire :\n\n00:00 : création d\'un compte GitHub\n01:17 : création d\'un repository sur GitHub\n\n02:35 : création d\'un projet sous Eclipse\n\n05:07 : création d\"un dépôt local dans Eclipse\n07:17 : lien avec le dépôt distant (premier enregistrement : commit and push)\n13:00 : annulation d\'un commit (revert commit)\n15:28 : récupération d\'un projet distant (clone)\n\n\nERRATUM :\n1:48 : je dis que qu\'un repository privé est payant. En fait, il semblerait que depuis janvier 2019, il soit gratuit avec une limite de 3 collaborateurs par repository (merci à Kassim Acacia pour le signalement)', 'mlN7VvZkXtM', 1),
-(7, '2020-11-05 17:00:02', 'Eclipse n°2 : rétroconception avec ObjectAid', 'Utilisation de l\'outil ObjectAid sous Eclipse pour faire de la rétroconception sur les classes, c\'est-à-dire obtenir le diagramme de classes à partir de classes existantes.\n\nATTENTION, contrairement à ce qui est présenté dans la vidéo, ObjectAid n\'est plus accessible via le site. Il faut aller ici :\nhttps://github.com/AbbaouiAmine/objectAidArchive/blob/main/objectaid-1.2.4.zip\nTélécharger le zip. Dans la vidéo, à 0:48, quand je dis de donner l\'adresse Internet, à la place, il faut cliquer sur \"archive\", aller sélectionner le fichier zip téléchargé puis continuer les autres étapes de la vidéo.', '9UBtVxHsnNk', 1),
+INSERT INTO `formation` (`id`, `published_at`, `title`, `description`, `video_id`, `playlist_id`) VALUES
+(5, '2020-11-09 17:00:25', 'Eclipse n°4 : WindowBuilder', 'Intégration de l\'outil WindowBuilder dans Eclipse pour pouvoir construire de façon visuelle, une interface graphique.00:00 : téléchargement et configuration de WindowBuilder03:00 : création d\'une JFrame avec WindowBuilder05:56 : construction de l\'interface graphique10:43 : gestion des événements16:15 : gestion des ressources graphiques (images...)', 'pQfbr3hpw04', 1),
+(7, '2020-11-05 17:00:02', 'Eclipse n°2 : rétroconception avec ObjectAid', 'Utilisation de l\'outil ObjectAid sous Eclipse pour faire de la rétroconception sur les classes, c\'est-à-dire obtenir le diagramme de classes à partir de classes existantes.ATTENTION, contrairement à ce qui est présenté dans la vidéo, ObjectAid n\'est plus accessible via le site. Il faut aller ici :https://github.com/AbbaouiAmine/objectAidArchive/blob/main/objectaid-1.2.4.zipTélécharger le zip. Dans la vidéo, à 0:48, quand je dis de donner l\'adresse Internet, à la place, il faut cliquer sur \"archive\", aller sélectionner le fichier zip téléchargé puis continuer les autres étapes de la vidéo.', '9UBtVxHsnNk', 1),
 (8, '2020-11-03 17:08:22', 'Eclipse n°1 : installation de l\'IDE', 'Première vidéo d\'une série sur Eclipse et le développement Java.\nInstallation du JDK et d\'Eclipse 2020-09.', 'EBzTRPgbqdc', 1),
 (9, '2020-11-01 17:00:13', 'UML : Diagramme de paquetages', 'Présentation des éléments qui constituent un diagramme de paquetages.', 'Wkbwzfybk1E', 24),
 (10, '2020-10-30 17:00:09', 'UML : Diagramme de classes', 'Présentation des éléments qui constituent un diagramme de classes', 'odKgwPftibM', 24),
-(12, '2020-09-26 16:30:01', 'UML : Diagramme d\'activité', 'Présentation du tableau descriptif d\'un cas d\'utilisation et la représentation graphique de son scénario avec un diagramme d\'activité.', 'D4tnhIpYYSM', 24),
 (13, '2020-09-24 16:30:01', 'UML : Diagramme de cas d\'utilisation', 'Présentation du diagramme de cas d\'utilisation à travers la construction d\'un exemple.', 'LDTDlXMV1xY', 24),
 (14, '2020-08-07 16:15:01', 'C# : ListBox en couleur', 'Comment mettre les lignes d\'une ListBox en couleur, en fonction de certains critères.\n\n00:00 : affichage simple\n00:39 : couleurs sur les boutons radios\n01:12 : DrawMode et DrawItem sur ListBox\n02:20 : documentation officielle sur Internet\n06:00 : code de DrawItem\n10:22 : tests', 'Ce3nT4g5SKk', 2),
-(15, '2020-08-04 16:15:01', 'C# : Documentation technique', 'Comment générer automatiquement une documentation technique sous Visual Studio.\nLe fichier généré étant au format XML, il est plus pratique d\'utiliser un outil pour obtenir un autre format plus lisible, comme un site HTML.\nL\'outil utilisé dans cette vidéo est Sandcastle, téléchargeable ici :\nhttps://github.com/EWSoftware/SHFB/releases\n\n00:00 : configuration du projet pour créer la doc technique\n00:48 : ajout des commentaires normalisés\n03:53 : génération de la doc au format xml\n04:45 : téléchargement et installation de SandCastle\n09:37 : création du projet sous SandCastle\n11:58 : obtention du site de la doc technique', 'GH5FgAUanhw', 2),
 (16, '2020-08-02 16:26:13', 'C# : Lier List et ListBox', 'Comment lier une List à une ListBox, afin de pouvoir récupérer le bon objet dans la List, lors d\'une sélection d\'une ligne dans la ListBox.\n\nNotions abordées : \nRécupération de l\'indice de ligne de la ListBox, qui est aussi l\'indice de l\'objet dans la List.\n\nPossibilité de lier les 2 avec DataSource. \n\nUtilisation de BindingList pour le lien.\n\n\n00:00 : rappel sur le remplissage du ListBox\n00:58 : gérer la suppression\n06:03 : lien avec DataSource\n08:39 : BindingList', '-Zt1vbdUdnQ', 2),
 (17, '2020-07-31 15:55:54', 'C# : Tri avec ToString et CompareTo', 'Comment gérer le tri sur le titre, dans la liste, alors que la première information affichée est l\'année de sortie.\n\nNotions abordées : \nToString : méthode existante dans la classe Object (mère de toutes les classes) qui permet de transformer une variable (quel que soit son type) en chaîne. Cette méthode peut être redéfinie  (override) dans n\'importe quelle classe, afin de définir notre propre formatage de la transformation en chaîne.\nCompareTo : méthode présente dans l\'interface IComparable (il faut donc que la classe implémente IComparable) et qui permet de comparer 2 informations. Cette méthode sert à la gestion de tris (en gérant une comparaison personnalisée).\n\n00:49 : méthode ToString\n03:32 : méthode CompareTo\n06:19 : méthode Sort qui utilise CompareTo\n07:45 : tests', 'LwkGsXCUdeg', 2),
 (18, '2020-07-29 16:00:07', 'C# : Sérialisation d\'objets', 'Enregistrement de la liste d\'objets dans un fichier binaire, pour pouvoir récupérer les informations après avoir fermé et réouvert l\'application. C\'est une méthode simple et légère pour sauvegarder des données provenant d\'objets métiers. Cette méthode de sauvegarde, intéressante dans certains cas, reste limitée.\nNotions abordées : sérialisation, classe sérialisable.\n\nClasse Serialise à récupérer :\nhttps://bit.ly/EmdsClasseSerialise\n(j\'ai mis comme namespace TestHeritage, comme celui de l\'application)\n\n00:00 : présentation de la classe Serialise\n02:25 : besoin d\'un nom de fichier\n02:59 : sauvegarde de l\'objet\n03:43 : récupération de l\'objet\n05:27 : classes sérialisables\n06:00 : test (les informations sont récupérées après fermeture)\n07:00 : intérêt et limite de la sérialisation \n\nErreur : 1min36 je dis que \"les méthodes sont accessibles directement par le nom de la classe car la classe est abstraite\". J\'ai oublié de compléter par le fait que ses méthodes sont statiques car le but de cette classe n\'est pas d\'être mère d\'autres classes mais juste de proposer des méthodes. Du coup, sachant qu\'elle est abstraite, donc qu\'il ne sera pas possible de créer des objets du type de cette classe et que ses méthodes ne seront pas accessibles à partir de classes filles, alors ses méthodes doivent être statiques. Et c\'est justement parce qu\'elles sont statiques qu\'elles sont accessibles directement par le nom de la classe, et pas par un objet.\n\nRemarque : Vous remarquerez que j\'insiste dans mon erreur scandaleuse de date pour la sortie de Star Wars 4...', 'OL_qY2ennMo', 2),
 (19, '2020-07-27 16:00:01', 'C# : Classes et héritage', 'Utilisation de classes métiers pour mémoriser des informations et les utiliser pour remplir une ListBox.\nNotions abordées : classe, constructeur, getter, héritage, this, classes abstraite, méthode abstraite redéfinie dans les classes filles (override), polymorphisme, transtypage.\n\n00:00 : présentation de l\'interface\n01:34 : notion de classe au niveau des objets graphiques\n02:20 : création d\'une classe métier\n03:35 : constructeur\n05:25 : getters\n07:17 : héritage\n11:32 : notion de this\n13:10 : rendre un objet graphique visible ou non\n18:02 : utilisation de la classe List\n20:19 : déclaration d\'un objet métier\n21:20 : classe abstraite\n22:08 : création d\'objets de classes héritées\n25:58 : remplir la listBox à partir de l\'objet List\n33:00 : test du type de l\'objet \n33:50 : remplir la ListBox à partir d\'une seule méthode override\n39:44 : test\n\nRemarque n°1 : désolée pour l\'énorme erreur sur la date de sortie de Star Wars 4. Ce n\'est bien sûr pas en 87 mais en 78. Honte à moi qui en plus ai eu la chance de le voir au cinéma à sa sortie.\n\nRemarque n°2 : Désolée de l\'absence de commentaires. J\'ai dit que c\'était pour réduire la durée de la vidéo, déjà bien longue. Mais j\'aurais pu le faire en off (en faisant une pause sur la vidéo).', '0VDbDYREVcU', 2),
 (20, '2020-07-25 16:00:17', 'C# : lier Github à Visual Studio', 'Pour un travail professionnel sur des projets en commun, il est possible de configurer Visual Studio pour qu\'il communique avec GitHub. \nCette vidéo montre comment réaliser cette configuration mais aussi comment publier un projet, récupérer le clone pour travailler sur une branche indépendante puis envoyer des propositions de modifications de code au développeur principal qui peut valider ou refuser les modifications.\nNotions abordées : commit, push, pull request, merge.\n\n00:00 : téléchargement et installation Github\n01:32 : configuration de Github dans Visual Studio\n02:47 : publication sur GitHub\n03:30 : création compte sous Github\n04:51 : connexion au compte Github à partir de Visual Studio\n05:11 : publication du projet sur Github\n07:02 : création d\'un nouveau projet à partir du clône\n09:12 : création d\'une branche\n10:18 : modifications sur le code\n11:25 : enregistrement des modifications sur Github (commit and push)\n12:53 : envoi d\'une requête de tirage (pull request)\n14:30 : possibilités du développeur sous GitHub\n15:00 : gestion des messages entre Github et Visual Studio\n16:20 : affichage des modifications proposées\n17:12 : validation des modifications (merge pull request)\n18:29 : autre modification sur le code avec toute la démarche\n20:06 : refus de la demande (close pull request)\n\n\nIMPORTANT :\nA 02:47 \"publication sur GitHub, si le bouton \"prise en main\" n\'a aucune action, voici le mode opératoire à suivre :\n1. Allez vous même dans la fenêtre \"Team Explorer\" et sélectionnez \"Synchroniser\" : vous pourrez alors continuer le guide.\n2. Si à 5:45, au niveau de GitHub, vous n\'avez qu\'un commit au lieu de 2 et, dans la liste des fichiers, vous ne voyez pas le fichier \"Calculs.sln\", alors vous devez gérer vous-même le commit. Pour cela, allez dans \"Team Explorer\" puis \"Accueil\" (la maison) et sélectionnez \"Modifications\". Mettez un commentaire puis sélectionnez \"Valider tout et pousser\" (surtout, prenez bien \"et pousser\" et non pas juste \"valider tout\"). Vérifiez sur GitHub que le commit a bien été enregistré.\n\n\n\nERREUR : \nA 08:00, je dis qu\'il faut donner un nom de dossier qui correspond au nom du projet, ce qui est faux car le dossier va se créer automatiquement.', 'p4Y0WvpEGgU', 2),
-(21, '2020-07-23 16:00:01', 'C# : création d\'objets graphiques dans le code', 'Allons plus loin dans le code des applications de bureau en C# (sous Visual Studio 2019) :\nApprendre à créer des objets graphiques directement dans le code (objets simples et aussi groupes d\'objets).\n00:00 : intérêt\n00:46 : présentation de l\'interface\n01:06 : création d\'un objet simple dans le code (bouton)\n02:59 : affectation de l\'objet à un conteneur d\'affichage\n06:15 : taille et position\n08:37 : TabIndex\n09:10 : Text\n09:43 : création de la capture de l\'événement liée à l\'objet\n11:08 : création de la procédure événementielle correspondante\n13:07 : création d\'un conteneur pour insérer plusieurs objets graphiques\n15:04 : création d\'une boucle pour générer plusieurs objets\n15:30 : déclaration et création de l\'objet\n16:34 : ajout dans le groupe \n17:06 : calcul de la position\n18:26 : construction du texte par calcul (lettre de l\'alphabet)\n21:14 : création de la capture de l\'événement liée à tous les objets\n22:20 : création de la procédure événementielle unique pour tous les objets\n23:01 : utilisation du paramètre sender\n25:29 : exécution pour tester', '3RayCDFo_pI', 2),
-(22, '2020-07-21 16:00:25', 'C# : utilisation des objets graphiques', 'Pour les débutants en application de bureau sous C# (sous Visual Studio 2019) :\nComprendre les événements, gérer les objets graphiques dans le code, sécuriser l\'interface.\n00:00 : création de l\'application de bureau\n00:34 : création de l\'interface\n05:25 : 1e méthode de création d\'une procédure événementielle\n05:43 : 2e méthode de création d\'une procédure événementielle\n06:46 : 3e méthode de création d\'une procédure événementielle\n08:01 : présentation du code généré automatiquement dans Designer\n12:05 : lien entre capture d\'événement et procédure événementielle\n13:26 : supprimer proprement une procédure événementielle\n17:22 : erreur lors d\'une mauvaise suppression d\'une procédure événementielle\n19:14 : gestion du focus\n20:58 : ajout dans une liste, passage en majuscule, utilisation de variables locales\n24:14 : événement KeyPress et utilisation du paramètre de type KeyPressEventArgs\n27:08 : appel volontaire d\'une procédure événementielle\n27:40 : suppression d\'une ligne d\'une liste si une ligne est sélectionnée\n29:57 : MessageBox (boite de dialogue) simple\n31:16 : MessageBox pour une demande de confirmation\n33:57 : événement SelectedIndexChanged sur une liste\n35:52 : exécution pour tester\n38:29 : création d\'un module non événementiel avec la refactorisation\n41:42 : optimisation d\'un module non événementiel\n42:24 : exécution pour tester\n43:18 : propriété Enabled\n45:27 : exécution pour tester\n\nAutres remarques :\nVous avez dû remarquer un flottement à 40mn25s : Visual Studio avait planté...\nJ\'ai aussi fait une bêtise à 42mn13s en supprimant une ligne où le label était remis à vide alors que je devais supprimé le texte remis à vide.', 'wkzXQGQiZHA', 2),
 (23, '2020-07-19 16:04:14', 'C# : événementiel contre séquentiel', 'Pour les débutants en application de bureau sous C# (sous Visual Studio 2019) :\nDifférence d\'approche entre une application séquentielle en mode console et une application événementielle en mode graphique.\nUne même application est présentée sous les deux modes de programmation.\n00:00 : présentation de la version séquentielle en mode console\n01:56 : présentation de la version événementielle en mode graphique\n03:55 : création d\'une procédure événementielle sur le clic\n11:00 : appel volontaire d\'une procédure événementielle\n12:07 : création d\'une procédure événementielle sur le changement d\'un texte\n13:24 : création d\'un module non événementiel', 'euZqLEU2F_E', 2),
 (24, '2020-07-13 17:48:29', 'C# : présentation des objets graphiques', 'Pour les débutants en application de bureau sous C# (sous Visual Studio 2019) :\nPrésentation des objets graphiques les plus courants.\n00:00 Création d\'un projet de type \"application de bureau\"\n00:40 Présentation de l\'interface graphique\n01:29 Catégories d\'objets graphiques\n03:01 Placer un objet, gérer les alignements et modifier ses propriétés (exemple avec un bouton)\n05:51 Nommer un objet\n07:02 Sauvegarder\n07:13 Supprimer des objets\n07:25 ChexBox (case à cocher)\n08:38 CheckedListBox (liste de cases à cocher)\n10:10 ComboBox (liste déroulante)\n10:43 DateTimePicker (sélectionneur de date)\n11:17 Label (étiquette informative)\n12:27 LinkLabel (lien hyptertexte)\n12:39 ListBox (Liste d\'informations)\n13:23 NumericUpDown (sélectionneur numérique)\n14:00 PictureBox (image)\n15:50 RadioButton (bouton radio)\n17:19 TextBox (zone de saisie de texte)\n18:12 Exécution\n19:38 ListBox sélection multiple\n20:00 GroupBox (Boite de regroupement) par exemple pour regrouper les boutons radios\n21:22 Exécution\n21:48 MenuTrip (menu)', 'xBmwCrtqazU', 2),
-(25, '2019-12-10 17:00:04', 'Python n°18 : Décorateur singleton', 'Nouvel exemple de décorateur qui cette fois, décore une classe et non une fonction. Ce décorateur permet de faire en sorte qu\'une classe soit un singleton.\nUne classe singleton est une classe qui ne peut être instanciée qu\'une seule fois.', 'BLPIdhAHQmQ', 3),
 (26, '2019-12-02 10:46:38', 'Python n°17 : Décorateur exemple simple', 'Décorateur pour calculer le temps d\'exécution de fonctions. Exemple montrant la différence de performance entre 2 types de boucles.', '24_M88Ebyp0', 3),
-(27, '2019-11-22 11:03:07', 'Python n°16 : Décorateurs', 'Présentation théorique de la notion de décorateurs.', '0bMI9Z1XgIE', 3),
 (28, '2019-11-20 15:18:21', 'Python n°15 : Paramètres des fonctions', 'Présentation des différentes possibilités de paramètres d\'une fonction : \n- paramètres simples\n- paramètres initialisés\n- paramètres non nommés de nombre variable (liste)\n- paramètres nommés de nombre variable (dictionnaire)', 'EsXg1o3u-g4', 3),
 (29, '2019-10-28 13:21:15', 'Python n°14 : Héritage', 'Notion d\'héritage, appel du constructeur de la classe mère pour valoriser les propriétés de la classe mère, test du type d\'un objet.\nPour voir ces notions, reprise de l\'exercice de la vidéo 12 sur la création de la classe Personnage :\nhttps://youtu.be/KHsEAuZdS5w\navec ajout des classes filles Mortel et Immortel.', 'hWtHkP9uwR8', 3),
 (30, '2019-10-25 13:56:29', 'Python n°13 : Encapsulation', 'Technique pour gérer les getter et setter sous Python pour éviter l\'accès direct aux propriétés.\nLa vidéo repart de l\'exercice précédent (12) :\nhttps://youtu.be/KHsEAuZdS5w', 'pLnMkC79i4U', 3),
@@ -196,9 +190,8 @@ INSERT INTO formation (id, published_at, title, description, video_id, playlist_
 (102, '2018-02-07 17:39:21', 'TP Android n°14 : plusieurs interfaces', 'Prérequis : avoir des connaissance en programmation objet (et avoir vu les vidéos précédentes de la construction de l\'application Android)\r\nBut : montrer comment créer plusieurs interfaces et comment passer d\'une interface à une autre.', '0LedL1ufiAs', 11),
 (103, '2018-02-06 10:30:31', 'TP Android n°13 : formatage de la date', 'Prérequis : avoir des connaissance en programmation objet (et avoir vu les vidéos précédentes de la construction de l\'application Android)\r\nBut : montrer comment transformer une chaîne en date et vice versa.', 'NwvHF4BcMck', 11),
 (104, '2018-02-04 18:03:43', 'TP Android n°12 : base de données distante MySQL (4)', 'Prérequis : avoir des connaissance en programmation objet (et avoir vu les vidéos précédentes de la construction de l\'application Android)\r\nBut : sous Android Studio, récupération du dernier profil distant dans le thread et affichage des informations dans l\'interface.', 'uNP706aKIRs', 11),
-(105, '2018-02-02 13:30:29', 'TP Android n°11 : base de données distante MySQL (3)', 'Prérequis : avoir des connaissance en programmation objet, en PHP et MySQL (et avoir vu les vidéos précédentes de la construction de l\'application Android)\r\nBut : sous Android Studio, création la classe AccesDistant qui est en lien avec AccesHTTP pour communiquer avec le serveur distant. Contrôle, dans la console, que la communication marche. Contrôle, dans MySQL, que le profil s\'enregistre.\r\n\r\nERRATUM : 30:10 je dis qu\'il envoie vers le serveur la requête. Ce n\'est pas la requête qui est envoyée mais juste les valeurs du profil. La requête est construite dans la page PHP.', '8Kyq69u9iqU', 11);
-INSERT INTO formation (id, published_at, title, description, video_id, playlist_id) VALUES
-(106, '2018-02-01 12:18:38', 'TP Android n°10 : base de données distante MySQL (2)', 'IMPORTANT n°1 : nouvelle classe AccesHTTP à télécharger (voir plus bas) \r\n\r\nIMPORTANT n°2 : si vous n\'arrivez pas à accéder à la base de données :\r\nIl existe maintenant 2 formats de BDD : MySQL et MariaDB, tous les 2 accessibles au même endroit et fonctionnant de façon similaire, mais sur des ports différents.\r\nDans le fichier fonctions.php que vous avez créé, je vous conseille de modifier la variable de connexion par :\r\n$conn = new PDO(\"mysql:host=$serveur;dbname=$bd;port=3308\", $login, $mdp);\r\nEn fait, si vous avez créer la base sous MariaDB (actuellement par défaut) le port est celui par défaut : 3306. Si vous avez sélectionné MySQL, normalement le nouveau port est 3308. Ca vaut d\'ailleurs le coup aussi de tester les 2...\r\n\r\n\r\n\r\n Prérequis : avoir des connaissance en programation objet (et avoir vu les vidéos précédentes de la construction de l\'application Android)\r\nBut : sous Android Studio, faire les bons paramétrages et créer les classes outils nécessaires pour l\'accès au serveur distant via Internet et le protocole HTTP.*\r\nERRATUM : à 22:09 je dis par erreur que onPostExecute est appelé par le execute de la classe mère. C\'est doInBackground qui est appelé par execute de la classe mère. onPostExecute est une méthode événementielle appelée lorsque le serveur renvoie une réponse.\r\n\r\nIMPORTANT :\r\nDans la classe AccesHTTP, j\'utilise des classes qui sont obsolètes et qui peuvent maintenant poser problème. Je ferai une vidéo pour montrer le principe d\'une nouvelle classe AccesHTTP, mais en attendant, je vous donne son code que vous pouvez récupérer ici : \r\nhttp://bit.ly/EmdsNewAccesHTTP\r\nPensez à changer le nom du package (1e ligne).\r\nLa logique est proche de la classe montrée dans la vidéo et normalement vous n\'avez rien à changer dans le reste du programme excepté que vous n\'avez plus besoin de mettre la ligne \'useLibrary \"org.apache.http.legacy\" \' dans build.gradle, comme montré en tout début de vidéo.', 'n5AeP-fqT30', 11),
+(105, '2018-02-02 13:30:29', 'TP Android n°11 : base de données distante MySQL (3)', 'Prérequis : avoir des connaissance en programmation objet, en PHP et MySQL (et avoir vu les vidéos précédentes de la construction de l\'application Android)\r\nBut : sous Android Studio, création la classe AccesDistant qui est en lien avec AccesHTTP pour communiquer avec le serveur distant. Contrôle, dans la console, que la communication marche. Contrôle, dans MySQL, que le profil s\'enregistre.\r\n\r\nERRATUM : 30:10 je dis qu\'il envoie vers le serveur la requête. Ce n\'est pas la requête qui est envoyée mais juste les valeurs du profil. La requête est construite dans la page PHP.', '8Kyq69u9iqU', 11),
+(106, '2018-02-01 12:18:38', 'TP Android n°10 : base de données distante MySQL (2)', 'IMPORTANT n°1 : nouvelle classe AccesHTTP à télécharger (voir plus bas) \r\n\r\nIMPORTANT n°2 : si vous n\'arrivez pas à accéder à la base de données :\r\nIl existe maintenant 2 formats de BDD : MySQL et MariaDB, tous les 2 accessibles au même endroit et fonctionnant de façon similaire, mais sur des ports différents.\r\nDans le fichier fonctions.php que vous avez créé, je vous conseille de modifier la variable de connexion par :\r\n$conn = new PDO(\"mysql:host=$serveur;dbname=$bd;port=3308\", $login, $mdp);\r\nEn fait, si vous avez créer la base sous MariaDB (actuellement par défaut) le port est celui par défaut : 3306. Si vous avez sélectionné MySQL, normalement le nouveau port est 3308. Ca vaut d\'ailleurs le coup aussi de tester les 2...\r\n\r\n\r\n\r\n Prérequis : avoir des connaissance en programation objet (et avoir vu les vidéos précédentes de la construction de l\'application Android)\r\nBut : sous Android Studio, faire les bons paramétrages et créer les classes outils nécessaires pour l\'accès au serveur distant via Internet et le protocole HTTP.*\r\nERRATUM : à 22:09 je dis par erreur que onPostExecute est appelé par le execute de la classe mère. C\'est doInBackground qui est appelé par execute de la classe mère. onPostExecute est une méthode événementielle appelée lorsque le serveur renvoie une réponse.\r\n\r\nIMPORTANT :\r\nDans la classe AccesHTTP, j\'utilise des classes qui sont obsolètes et qui peuvent maintenant poser problème. Je ferai une vidéo pour montrer le principe d\'une nouvelle classe AccesHTTP, mais en attendant, je vous donne son code que vous pouvez récupérer ici : \r\nhttp://bit.ly/EmdsNewAccesHTTP\r\nPensez à changer le nom du package (1e ligne).\r\nLa logique est proche de la classe montrée dans la vidéo et normalement vous n\'avez rien à changer dans le reste du programme excepté que vous n\'avez plus besoin de mettre la ligne \'useLibrary \"org.apache.http.legacy\" \' dans build.gradle, comme montré en tout début de vidéo.', 'n5AeP-fqT30', 11),
 (107, '2018-01-31 14:20:06', 'TP Android n°9 : base de données distante MySQL (1)', 'Prérequis : de préférence des connaissances de base en PHP et MySQL\r\n\r\nBut : installer WAMP (ou LAMP ou MAMP suivant votre système) pour tester en local, créer une base de données MySQL (en utilisant phpMyAdmin), créer 2 pages php (une pour se connecter à la base de données, une autre pour gérer les demandes de l\'application Android qui voudra enregistrer un profil et récupérer le dernier profil enregistré).\r\nERRATUM : tout à la fin, je parle de \"vidéo précédente\", il est bien sûr question de \"vidéo suivante\".', 'PKd8CEXXyLk', 11),
 (108, '2018-01-28 14:39:00', 'TP Android n°8 : base de  données locale SQLite', 'Prérequis : connaissances en Java, en programmation objet, en SQL et avoir vu les vidéos précédentes de cette série\r\nBut : Découvrir le fonctionnement d\'une base de données au format SQLite. Créer les classes d\'accès. Manipuler un curseur. Enregistrer les profils et les récupérer. Utiiser un browser externe pour consulter la base de données.', 'vRaR3yLnHig', 11),
 (109, '2018-01-25 17:47:06', 'TP Android n°7 : persistance par sérialisation', 'Prérequis : connaissances en Java et programmation objet (voir le cours objet et le TP Java) et avoir vu les vidéos précédentes de cette série\r\nBut : enregistrer le profil par sérialisation dans un fichier binaire afin de le récupérer lors de l\'exécution suivante de l\'application. La classe de sérialisation vous est donnée et peut être réutilisée dans n\'importe quelle application Java.', 'pLGSguzM9jU', 11),
@@ -207,7 +200,8 @@ INSERT INTO formation (id, published_at, title, description, video_id, playlist_
 (112, '2018-01-18 14:12:32', 'TP Android n°4 : code du modele et tests unitaires', 'Prérequis : connaissances en Java et programmation objet (sinon voir le cours objet et le TP POO Java)\r\nBut : coder la classe de la partie Modele du MVC et création de tests unitaires', '-3PEXYo7gKM', 11),
 (113, '2018-01-16 19:51:19', 'TP Android n°3 : construction de l\'interface', 'Remarque : vous verrez quelques différences dans l\'IDE, au niveau de la construction de l\'interface, mais cela reste minime (dessins de boutons un peu différents...).\r\n\r\nPrérequis : aucune (mais pour la suite, il faut avoir des connaissances en Java et programmation objet)\r\nBut : montrer le but de l\'application et construire la 1e interface (notions de Layout, de widgets et de positionnement relatif)', 'nd0hZafw1sM', 11),
 (114, '2018-01-14 15:17:56', 'TP Android n°2 : création d\'une application', 'IMPORTANT : surtout choisissez bien le langage Java pour l\'application (et non Kotlin, proposé maintenant par défaut).\r\nLes étapes de création ont évolués mais la logique globale reste la même.\r\nVoici tout de même des indications (données début 2022 donc susceptibles d\'évolution) :\r\nL\'ordre de création d\'un projet a changé.\r\nMaintenant, vous tombez directement sur l\'écran présenté en 2:35 où vous choisissez \"Empty Activity\".\r\n3:00 : Maintenant on vous demande le nom (Coach), le \"package name\" est déjà rempli, il y a aussi le dossier de sauvegarde (que vous pouvez changer mais pensez à mettre \"\\Coach\" à la fin). ATTENTION, au niveau langage, choisissez \"Java\" (et surtout pas Kotlin, le TP a été fait en Java). Le minimum SDK est normalement \"API 16\".\r\n3:42 : la partie basse, une erreur et une invitation à faire une installation complémentaire en cliquant sur un lien. Dans ce cas, suivez les indications et cliquez sur le lien. Si, après cette installation, une nouvelle erreur apparait et une nouvelle installation est proposée, suivez encore les indications. Faites-le tant que des propositions sont faites. Au final, vous devriez obtenir la fenêtre précédente.\r\nIl est possible que dans la partie droite, il y ait une partie \"What’s New\". Fermez cette partie en cliquant sur le \"-\" en haut à droite de cette zone (hide) ou sur \"Assistant\" qui est marqué verticalement tout à droite.\r\nSi vous avez une partie basse ouverte (partie qui affiche entre autres, les erreurs), fermez-là en cliquant sur le \"-\" à droite. Pour le moment, on n\'en a pas besoin.\r\n14:33 : Restez sur l\'onglet \"Recommended\" et choisissez Lollilop API 22.\r\n\r\nPrérequis : aucune (mais pour la suite, il faut avoir des connaissances en Java et programmation objet)\r\nBut : créer une nouvelle application, comprendre la structure d\'une application Android, configurer l\'AVD Manager pour tester l\'application', 'xzLxUu2xO7s', 11),
-(115, '2018-01-12 11:17:51', 'TP Android n°1 : installation et configuration d\'Android Studio', 'IMPORTANT : Android Studio évolue très vite. Il est possible qu\'au cours du TP, vous rencontriez des différences avec ce que je montre. N\'hésitez pas à poser des questions dans les commentaires, en cas de blocage. \r\n\r\nRemarques suite à l\'évolution de l\'IDE :\r\n7:36 : prenez plutôt l\'API 16 donc cochez \"Android 4.1 Jelly Bean\". Ne cochez pas plus d\'options (contrairement à ce qui est montré dans la vidéo)\r\n8:52 : vous devriez plutôt voir l\'option \"Start New Project\"\r\n\r\nPrérequis : aucune (mais pour la suite, il faut avoir des connaissances en Java et programmation objet)\r\nBut : installer et configurer l\'IDE Android Studio qui va permettre de développer sous Android\r\nLangage : Java pour Android\r\nTemps complet du TP : 8h12mn\r\n\r\nSommaire de cette vidéo :\r\nIntroduction\r\nInstallation de JDK : 2:52\r\nTéléchargement et installation Android Studio : 3:24\r\nPremier démarrage : 5:17\r\nConfiguration SDK : 5:55', 'M6pi6jXpRrs', 11),
+(115, '2018-01-12 11:17:51', 'TP Android n°1 : installation et configuration d\'Android Studio', 'IMPORTANT : Android Studio évolue très vite. Il est possible qu\'au cours du TP, vous rencontriez des différences avec ce que je montre. N\'hésitez pas à poser des questions dans les commentaires, en cas de blocage. \r\n\r\nRemarques suite à l\'évolution de l\'IDE :\r\n7:36 : prenez plutôt l\'API 16 donc cochez \"Android 4.1 Jelly Bean\". Ne cochez pas plus d\'options (contrairement à ce qui est montré dans la vidéo)\r\n8:52 : vous devriez plutôt voir l\'option \"Start New Project\"\r\n\r\nPrérequis : aucune (mais pour la suite, il faut avoir des connaissances en Java et programmation objet)\r\nBut : installer et configurer l\'IDE Android Studio qui va permettre de développer sous Android\r\nLangage : Java pour Android\r\nTemps complet du TP : 8h12mn\r\n\r\nSommaire de cette vidéo :\r\nIntroduction\r\nInstallation de JDK : 2:52\r\nTéléchargement et installation Android Studio : 3:24\r\nPremier démarrage : 5:17\r\nConfiguration SDK : 5:55', 'M6pi6jXpRrs', 11);
+INSERT INTO `formation` (`id`, `published_at`, `title`, `description`, `video_id`, `playlist_id`) VALUES
 (116, '2017-11-30 11:19:25', 'POO TP Java n°6 : polymorphisme', 'Prérequis : avoir vu les 5 vidéos précédentes (et avoir des connaissances en programmation objet)\r\nBut : gérer la liste (ajout, suppression) et utiliser le polymorphisme\r\nLangage : Java sous Eclipse Neon', 'tnp0dEUYORA', 12),
 (117, '2017-11-29 10:42:25', 'POO TP Java n°5 : événements et contrôleur', 'Prérequis : avoir vu les 4 vidéos précédentes (et avoir des connaissances en programmation objet)\r\nBut : ajouter les événements et compléter le contrôleur qui gère tout\r\nLangage : Java sous Eclipse Neon', '8at4NpebW6c', 12),
 (118, '2017-11-27 10:25:27', 'POO TP Java n°4 : démarrage sur le contrôleur, contruction du modèle', 'Remarque : A la fin de la vidéo, la classe Rond n\'a pas de constructeur alors qu\'il y en a bien un dans la classe Carre. C\'est un oubli qui est réparé dans la vidéo suivante, à la minute 13.\r\n\r\nPrérequis : avoir vu les 3 vidéos précédentes (et avoir des connaissances en programmation objet)\r\nBut : montrer comment faire démarrer l\'application sur le contrôleur, et construction du modèle avec une classe interface pour le polymorphisme\r\nLangage : Java sous Eclipse Neon', 'Ul4INk7LWS4', 12),
@@ -316,8 +310,7 @@ INSERT INTO formation (id, published_at, title, description, video_id, playlist_
 (222, '2016-11-29 13:11:53', 'Cours MCD vs Diagramme de classes (1 à 11 / 20) : introduction, entités, associations', 'Prérequis : connaissances en MCD et Diagramme de classes\r\nBut : montrer comment passer du MCD au Diagramme de classes\r\nLe cours est constitué de 20 diapos, découpées en 2 vidéos (durée totale 26mn) :\r\n1-11 : introduction, entités, associations\r\n12-20 : héritage, contraintes, exercices\r\n\r\nLien vers le pdf du cours :\r\nhttp://bit.ly/EmdsMCD_vs_UML', 'LxpWExZwKQs', 19),
 (223, '2016-11-02 15:46:24', 'Cours Transactions et verrous (14 à 17 / 17) : risques sur les verrous et cas d\'utilisation', 'Prérequis : connaissances basiques en SQL\r\nBut : présentation des transactions sql et de leur niveau d\'isolement, ainsi que des verrous explicites (programmation dans un SGBDR)\r\nLe cours est constitué de 17 diapos, découpées en 3 vidéos (durée totale 32mn) :\r\n1-6 : transactions\r\n7-13 : verrous et problèmes d\'accès\r\n14-17 : risques sur les verrous et cas d\'utilisation\r\n\r\nlien vers le pdf du cours :\r\nhttp://bit.ly/EmdsTransactions_verrous', '4yW0fTIQW6k', 20),
 (224, '2016-11-02 15:42:03', 'Cours Transactions et verrous (7 à 13 / 17) : verrous et problèmes d\'accès', 'Prérequis : connaissances basiques en SQL\r\nBut : présentation des transactions sql et de leur niveau d\'isolement, ainsi que des verrous explicites (programmation dans un SGBDR)\r\nLe cours est constitué de 17 diapos, découpées en 3 vidéos (durée totale 32mn) :\r\n1-6 : transactions\r\n7-13 : verrous et problèmes d\'accès\r\n14-17 : risques sur les verrous et cas d\'utilisation\r\n\r\nlien vers le pdf du cours :\r\nhttp://bit.ly/EmdsTransactions_verrous', 'o7Yjg8Ct4Bs', 20),
-(225, '2016-11-02 15:34:02', 'Cours Transactions et verrous (1 à 6 / 17) : transactions', 'Prérequis : connaissances basiques en SQL\r\nBut : présentation des transactions sql et de leur niveau d\'isolement, ainsi que des verrous explicites (programmation dans un SGBDR)\r\nLe cours est constitué de 17 diapos, découpées en 3 vidéos (durée totale 32mn) :\r\n1-6 : transactions\r\n7-13 : verrous et problèmes d\'accès\r\n14-17 : risques sur les verrous et cas d\'utilisation\r\n\r\nlien vers le pdf du cours :\r\nhttp://bit.ly/EmdsTransactions_verrous', 'A6tY7ZqiyVw', 20);
-INSERT INTO formation (id, published_at, title, description, video_id, playlist_id) VALUES
+(225, '2016-11-02 15:34:02', 'Cours Transactions et verrous (1 à 6 / 17) : transactions', 'Prérequis : connaissances basiques en SQL\r\nBut : présentation des transactions sql et de leur niveau d\'isolement, ainsi que des verrous explicites (programmation dans un SGBDR)\r\nLe cours est constitué de 17 diapos, découpées en 3 vidéos (durée totale 32mn) :\r\n1-6 : transactions\r\n7-13 : verrous et problèmes d\'accès\r\n14-17 : risques sur les verrous et cas d\'utilisation\r\n\r\nlien vers le pdf du cours :\r\nhttp://bit.ly/EmdsTransactions_verrous', 'A6tY7ZqiyVw', 20),
 (226, '2016-10-31 14:26:37', 'Cours Curseurs(5 à 8 / 8) : curseur historique et curseur dans le SGBDR', 'Prérequis : connaissances en programmation et en SQL\r\nBut : présentation des 3 catégories de curseurs (programmation dans un SGBDR)\r\nLe cours est constitué de 8 diapos, découpées en 2 vidéos (durée totale 25mn) :\r\n1-4 : introduction et curseur objet\r\n5-8 : curseur historique et curseur dans le SGBDR\r\n\r\nlien vers le pdf du cours :\r\nhttp://bit.ly/EmdsCurseurs', '4H2GMEwqCjA', 21),
 (227, '2016-10-31 14:11:01', 'Cours Curseurs(1 à 4 / 8) : introduction et curseur objet', 'Prérequis : connaissances en programmation et en SQL\r\nBut : présentation des 3 catégories de curseurs (programmation dans un SGBDR)\r\nLe cours est constitué de 8 diapos, découpées en 2 vidéos (durée totale 25mn) :\r\n1-4 : introduction et curseur objet\r\n5-8 : curseur historique et curseur dans le SGBDR\r\n\r\nlien vers le pdf du cours :\r\nhttp://bit.ly/EmdsCurseurs', 'Y09HkNAQTKw', 21),
 (228, '2016-10-29 13:23:14', 'Cours Triggers (26 à 32 / 32) : procédures et fonctions stockées', 'Prérequis : connaissances en Merise2 (playlists MCD et Merise2) et SQL\r\nBut : introduction aux triggers et procédures stockées (programmation dans un SGBDR)\r\nLe cours est constitué de 32 diapos, découpées en 6 vidéos (durée totale 57mn) :\r\n1-4 : introduction\r\n5-9 : exemple trigger sur exclusion\r\n10-14 : exemple trigger sur inclusion\r\n15-20 : syntaxe du langage\r\n21-25 : inclusion multiple et autres exemples de triggers\r\n26-32 : procédures et fonctions stockées\r\n\r\nlien vers le pdf du cours :\r\nhttp://bit.ly/EmdsTriggers', '9WgLpEa8U-0', 23),
@@ -337,35 +330,31 @@ INSERT INTO formation (id, published_at, title, description, video_id, playlist_
 -- --------------------------------------------------------
 
 --
--- Structure de la table formation_categorie
+-- Structure de la table `formation_categorie`
 --
 
-DROP TABLE IF EXISTS formation_categorie;
-CREATE TABLE formation_categorie (
-  formation_id int(11) NOT NULL,
-  categorie_id int(11) NOT NULL
+DROP TABLE IF EXISTS `formation_categorie`;
+CREATE TABLE IF NOT EXISTS `formation_categorie` (
+  `formation_id` int(11) NOT NULL,
+  `categorie_id` int(11) NOT NULL,
+  PRIMARY KEY (`formation_id`,`categorie_id`),
+  KEY `IDX_830086E95200282E` (`formation_id`),
+  KEY `IDX_830086E9BCF5E72D` (`categorie_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table formation_categorie
+-- Déchargement des données de la table `formation_categorie`
 --
 
-INSERT INTO formation_categorie (formation_id, categorie_id) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
+INSERT INTO `formation_categorie` (`formation_id`, `categorie_id`) VALUES
 (5, 1),
-(6, 1),
 (7, 1),
 (7, 2),
 (8, 1),
 (9, 2),
 (10, 2),
-(12, 2),
 (13, 2),
 (14, 3),
-(15, 3),
 (16, 3),
 (17, 3),
 (18, 3),
@@ -373,16 +362,10 @@ INSERT INTO formation_categorie (formation_id, categorie_id) VALUES
 (19, 3),
 (19, 7),
 (20, 3),
-(21, 3),
-(21, 7),
-(22, 3),
-(22, 7),
 (23, 3),
 (24, 3),
 (24, 7),
-(25, 4),
 (26, 4),
-(27, 4),
 (28, 4),
 (29, 4),
 (29, 7),
@@ -632,38 +615,43 @@ INSERT INTO formation_categorie (formation_id, categorie_id) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table messenger_messages
+-- Structure de la table `messenger_messages`
 --
 
-DROP TABLE IF EXISTS messenger_messages;
-CREATE TABLE messenger_messages (
-  id bigint(20) NOT NULL,
-  body longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  headers longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  queue_name varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-  created_at datetime NOT NULL,
-  available_at datetime NOT NULL,
-  delivered_at datetime DEFAULT NULL
+DROP TABLE IF EXISTS `messenger_messages`;
+CREATE TABLE IF NOT EXISTS `messenger_messages` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `headers` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue_name` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL,
+  `available_at` datetime NOT NULL,
+  `delivered_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
+  KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
+  KEY `IDX_75EA56E016BA31DB` (`delivered_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table playlist
+-- Structure de la table `playlist`
 --
 
-DROP TABLE IF EXISTS playlist;
-CREATE TABLE playlist (
-  id int(11) NOT NULL,
-  name varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  description longtext COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `playlist`;
+CREATE TABLE IF NOT EXISTS `playlist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table playlist
+-- Déchargement des données de la table `playlist`
 --
 
-INSERT INTO playlist (id, `name`, description) VALUES
+INSERT INTO `playlist` (`id`, `name`, `description`) VALUES
 (1, 'Eclipse et Java', 'Utilisation de l\'IDE Eclipse et développement en Java.'),
 (2, 'Visual Studio 2019 et C#', 'Plusieurs vidéos portant sur différents aspects de Visual Studio :\r\nProgrammation en C# (événementiel, objet, diverses astuces) et configuration (lien avec Github...).'),
 (3, 'Programmation sous Python', 'Exercices progressifs pour apprendre à programmer sous Python.'),
@@ -690,100 +678,53 @@ INSERT INTO playlist (id, `name`, description) VALUES
 (24, 'Cours UML', 'Cours UML (57mn)\r\nPrérequis : connaissances en objet \r\nBut : notions globales du langage de modélisation UML\r\nLe cours est constitué de 33 diapos, découpées en 6 vidéos (durée totale 57mn) :\r\n1-7 : introduction et cas d\'utilisation\r\n8-11 : diagramme de classes\r\n12-15 : diagramme d\'états\r\n16-18 : diagramme de séquences\r\n19-24 : autres diagrammes\r\n25-33 : exercices\r\n\r\nlien vers le pdf du cours :\r\nhttp://bit.ly/EmdsUML'),
 (25, 'Cours Merise/2', 'La playlist contient :\r\n- la nouvelle version du cours en une seule vidéo\r\n\r\nLien vers le pdf du cours :\r\nhttp://bit.ly/EmdsMerise2'),
 (26, 'Cours Modèle relationnel et MCD', 'La playlist contient :\r\n- la nouvelle version du cours en une seule vidéo (1h08)\r\n\r\nLien vers le pdf du cours :\r\nhttp://bit.ly/EmdsMCD'),
-(27, 'Cours de programmation objet', 'La playlist contient :\r\n- la nouvelle version du cours en une seule vidéo\r\n\r\nLien vers le pdf du cours :\r\nhttp://bit.ly/EmdsObjet');
+(27, 'Cours de programmation objet', 'La playlist contient :\r\n- la nouvelle version du cours en une seule vidéo\r\n\r\nLien vers le pdf du cours :\r\nhttp://bit.ly/EmdsObjet'),
+(34, 'titre', 'wow');
+
+-- --------------------------------------------------------
 
 --
--- Index pour les tables déchargées
+-- Structure de la table `user`
 --
 
---
--- Index pour la table categorie
---
-ALTER TABLE categorie
-  ADD PRIMARY KEY (id);
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `keycloak_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Index pour la table doctrine_migration_versions
---
-ALTER TABLE doctrine_migration_versions
-  ADD PRIMARY KEY (version);
-
---
--- Index pour la table formation
---
-ALTER TABLE formation
-  ADD PRIMARY KEY (id),
-  ADD KEY IDX_404021BF6BBD148 (playlist_id);
-
---
--- Index pour la table formation_categorie
---
-ALTER TABLE formation_categorie
-  ADD PRIMARY KEY (formation_id,categorie_id),
-  ADD KEY IDX_830086E95200282E (formation_id),
-  ADD KEY IDX_830086E9BCF5E72D (categorie_id);
-
---
--- Index pour la table messenger_messages
---
-ALTER TABLE messenger_messages
-  ADD PRIMARY KEY (id),
-  ADD KEY IDX_75EA56E0FB7336F0 (queue_name),
-  ADD KEY IDX_75EA56E0E3BD61CE (available_at),
-  ADD KEY IDX_75EA56E016BA31DB (delivered_at);
-
---
--- Index pour la table playlist
---
-ALTER TABLE playlist
-  ADD PRIMARY KEY (id);
-
---
--- AUTO_INCREMENT pour les tables déchargées
+-- Déchargement des données de la table `user`
 --
 
---
--- AUTO_INCREMENT pour la table categorie
---
-ALTER TABLE categorie
-  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT pour la table formation
---
-ALTER TABLE formation
-  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
-
---
--- AUTO_INCREMENT pour la table messenger_messages
---
-ALTER TABLE messenger_messages
-  MODIFY id bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table playlist
---
-ALTER TABLE playlist
-  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `keycloak_id`) VALUES
+(1, 'adminmediatekformation@dom.com', '[\"ROLE_ADMIN\"]', '', '54624edc-bf79-41b6-a541-ce811d87da6e'),
+(2, 'admin@gmal.com', '[\"ROLE_ADMIN\"]', '', '48bfa3b9-9030-4937-a9a8-4092739bb61f');
 
 --
 -- Contraintes pour les tables déchargées
 --
 
 --
--- Contraintes pour la table formation
+-- Contraintes pour la table `formation`
 --
-ALTER TABLE formation
-  ADD CONSTRAINT FK_404021BF6BBD148 FOREIGN KEY (playlist_id) REFERENCES playlist (id);
+ALTER TABLE `formation`
+  ADD CONSTRAINT `FK_404021BF6BBD148` FOREIGN KEY (`playlist_id`) REFERENCES `playlist` (`id`);
 
 --
--- Contraintes pour la table formation_categorie
+-- Contraintes pour la table `formation_categorie`
 --
-ALTER TABLE formation_categorie
-  ADD CONSTRAINT FK_830086E95200282E FOREIGN KEY (formation_id) REFERENCES formation (id) ON DELETE CASCADE,
-  ADD CONSTRAINT FK_830086E9BCF5E72D FOREIGN KEY (categorie_id) REFERENCES categorie (id) ON DELETE CASCADE;
+ALTER TABLE `formation_categorie`
+  ADD CONSTRAINT `FK_830086E95200282E` FOREIGN KEY (`formation_id`) REFERENCES `formation` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_830086E9BCF5E72D` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
